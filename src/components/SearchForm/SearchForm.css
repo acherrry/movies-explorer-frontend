@@ -1,0 +1,138 @@
+.search-form {
+  margin: 0 70px;
+  padding: 70px 0 68px;
+  border-bottom: 1px solid #424242;
+}
+
+.search-form__form {
+  display: flex;
+  align-items: center;
+  background-color: #2F2F2F;
+  padding: 19px 30px 20px 19px;
+  border-radius: 9px;
+  justify-content: space-between;
+  column-gap: 29px;
+  border: none;
+}
+
+.search-form__container {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  column-gap: 10px;
+  justify-content: space-between;
+  padding: 0 30px 0 0;
+  border-right: 1px solid #424242;
+  border-top: none;
+  border-bottom: none;
+  border-left: none;
+}
+
+.search-form__help-img {
+  background: transparent url('../../images/search-form/__help-img/help-img-icon.svg') no-repeat left;
+  min-width: 34px;
+  height: 34px;
+}
+
+.search-form__field {
+  border: 0;
+  padding: 0;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.11;
+  color: #FFFFFF;
+  width: 100%;
+  background-color: #2F2F2F;
+  transition: opacity 0.2s linear;
+}
+
+.search-form__field:hover {
+  opacity: 0.6;
+}
+
+.search-form__field::placeholder {
+  color: #8B8B8B;
+}
+
+.search-form__field:focus {
+  outline: 1px solid #8B8B8B;
+}
+
+.search-form__field:focus::placeholder {
+  opacity: 0; 
+  transition: opacity 0.2s linear;
+}
+
+.search-form__btn-find {
+  align-self: start;
+  cursor: pointer;
+  background: transparent url('../../images/search-form/__btn-find/btn-find.svg') no-repeat;
+  min-width: 34px;
+  height: 34px;
+  border: none;
+  padding: 0;
+  transition: opacity 0.2s linear;
+}
+
+.search-form__btn-find:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 840px) {
+  .search-form {
+    margin: 0 30px;
+    padding: 80px 0 109px;
+  }
+
+  .search-form__container {
+    padding: 0 19px 0 0;
+  }
+
+  .search-form__form {
+    column-gap: 19px;
+    padding: 19px 20px 20px 18px;
+  }
+}
+
+@media screen and (max-width: 640px) {
+  .search-form {
+    padding: 80px 0 43px;
+    max-width: 620px;
+  }
+
+  .search-form__form {
+    flex-direction: column;
+    max-width: 620px;
+    row-gap: 46px;
+    background: none;
+    padding: 0;
+    border-radius: 0;
+  }
+
+  .search-form__container {
+    border: none;
+    background-color: #2F2F2F;
+    padding: 19px 20px 19px 19px;
+    border-radius: 9px;
+    width: 90.7%;
+  }
+
+  .search-form__field {
+    font-size: 14px;
+    line-height: 1.43;
+  }
+
+  .search-form__help-img {
+    display: none;
+  }
+  
+  .search-form__checkbox {
+    background-color: none;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .search-form {
+    margin: 0 14px;
+  }
+}

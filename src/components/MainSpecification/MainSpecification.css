@@ -1,0 +1,21 @@
+.main__specification {
+  font-weight: 400;
+  font-size: 22px;
+  line-height: 1.21;
+  letter-spacing: -0.04em;
+  padding-bottom: 23px;
+  margin: 0;
+  border-bottom: 1px solid #DADADA;
+}
+
+@media screen and (max-width: 580px) {
+  .main__specification {
+    font-size: 18px;
+    line-height: 1.22;
+    padding-bottom: 28px;
+  }
+
+  .main__specification_techs {
+    border-bottom: 1px solid #000000;
+  }
+}

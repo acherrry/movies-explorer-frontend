@@ -1,0 +1,38 @@
+.navigation-project__list {
+  list-style: none;
+  display: flex;
+  justify-content: center;
+  margin: 0 auto;
+  padding: 0;
+  column-gap: 10px;
+}
+
+.navigation-project__link {
+  font-weight: 500;
+  font-size: 12px;
+  line-height: 1.33;
+  text-decoration: none;
+  color: #FFFFFF;
+  padding: 10px 13.5px;
+  border-radius: 10px;
+  background-color: #303030;
+  transition: opacity 0.2s linear;
+}
+
+.navigation-project__link:hover {
+  opacity: 0.6;
+}
+
+@media screen and (max-width: 768px) {
+  .navigation-project__link {
+    padding: 10px 17px;
+  }
+}
+
+@media screen and (max-width: 530px) {
+  .navigation-project__link {
+    padding: 5px 12px;
+    font-size: 10px;
+    line-height: 1.6;
+  }
+}

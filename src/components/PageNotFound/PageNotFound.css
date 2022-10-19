@@ -1,0 +1,69 @@
+.page-not-found {
+  padding-top: 35.14vh;
+  display: flex;
+  margin: 0 auto;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 184px;
+}
+
+.page-not-found__specification {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  row-gap: 5px;
+}
+
+.page-not-found__title {
+  margin: 0;
+  font-weight: 400;
+  font-size: 140px;
+  line-height: 1.21;
+}
+
+.page-not-found__subtitle {
+  margin: 0;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 1.19;
+}
+
+.page-not-found__link {
+  font-weight: 400;
+  font-size: 14px;
+  line-height: 1.21;
+  text-decoration: none;
+  color: #4285F4;
+}
+
+@media screen and (max-width: 768px) {
+  .page-not-found {
+    padding-top: 39.84vh;
+  }
+}
+
+@media screen and (max-width: 470px) {
+  .page-not-found {
+    padding-top: 42.18vh;
+    row-gap: 36.41vh;
+  }
+  
+  .page-not-found__title {
+  font-size: 80px;
+  line-height: 1.21;
+  }
+
+  .page-not-found__subtitle {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+
+  .page-not-found__specification {
+    row-gap: 10px;
+  }
+
+  .page-not-found__link {
+    font-size: 12px;
+    line-height: 1.25;
+  }
+}
