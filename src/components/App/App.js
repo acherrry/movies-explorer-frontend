@@ -8,8 +8,9 @@ import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
 import PageNotFound from "../PageNotFound/PageNotFound";
-import SearchForm from "../SearchForm/SearchForm";
-
+import Movies from "../Movies/Movies";
+import SavedMovies from "../SavedMovies/SavedMovies";
+import PopupInforming from "../PopupInforming/PopupInforming";
 function App() {
   return (
     <div className="App">
@@ -24,13 +25,14 @@ function App() {
 
         <Route path="/movies">
           <Header loggedIn={true} />
-          <SearchForm />
+          <Movies />
+          <PopupInforming />
           <Footer linkIsShow={true}/>
         </Route>
 
         <Route path="/saved-movies">
           <Header loggedIn={true} />
-          <SearchForm />
+          <SavedMovies />
           <Footer linkIsShow={true}/>
         </Route>
 
