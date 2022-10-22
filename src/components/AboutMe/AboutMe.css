@@ -56,8 +56,8 @@
 
 .about-me__avatar {
   object-fit: cover;
-  max-width: 270px;
-  max-height: 327px;
+  width: 270px;
+  height: 327px;
   border-radius: 10px;
 }
 
@@ -69,14 +69,14 @@
 
 @media screen and (max-width: 840px) {
   .about-me {
-    padding: 90px 0 0;
+    padding: 89px 0 0;
     margin: 0 50px;
   }
 
   .about-me__job {
     font-size: 12px;
     line-height: 1.5;
-    margin: 16px 0 20px;
+    margin: 11px 0 20px;
   }
 
   .about-me__description {
@@ -86,12 +86,13 @@
   }
 
   .about-me__container {
+    margin-top: 60px;
     column-gap: 49px;
   }
 
   .about-me__avatar {
-    max-width: 255px;
-    max-height: 307px;
+    width: 255px;
+    height: 307px;
   }
 }
 
@@ -108,13 +109,13 @@
 
 @media screen and (max-width: 580px) {
   .about-me {
-    padding: 70px 0 0;
+    padding: 65px 0 0;
     margin: 0 14px;
   }
 
   .about-me__avatar {
-    max-width: 292px;
-    max-height: 352px;
+    width: 292px;
+    height: 352px;
   }
 
   .about-me__job {

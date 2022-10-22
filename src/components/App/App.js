@@ -11,6 +11,7 @@ import PageNotFound from "../PageNotFound/PageNotFound";
 import Movies from "../Movies/Movies";
 import SavedMovies from "../SavedMovies/SavedMovies";
 import PopupInforming from "../PopupInforming/PopupInforming";
+
 function App() {
   return (
     <div className="App">

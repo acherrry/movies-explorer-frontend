@@ -9,7 +9,7 @@ function SignContainer({ header, children, submit, text, path, link }) {
       <div className="sign-container__content">
         <Logo />
         <h2 className="sign-container__title">
-        {header}
+          {header}
         </h2>
         <form className="sign-container__form">
           <div className="sign-container__items">

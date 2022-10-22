@@ -2,7 +2,7 @@
   margin: 0;
   background-color: #272727;
   box-sizing: border-box;
-  padding: 90px 70px 100px;
+  padding: 99px 70px 100px;
 }
 
 .techs_container {
@@ -46,7 +46,7 @@
 
 @media screen and (max-width: 840px) {
   .techs {
-    padding: 90px 50px;
+    padding: 91px 50px;
   }
 
   .techs__list {
@@ -72,7 +72,7 @@
   .techs__item {
     width: 84px;
     min-height: 37px;
-    padding-top: 20px;
+    padding-top: 21px;
     font-size: 12px;
     line-height: 1.25;
   }
@@ -88,7 +88,7 @@
 
 @media screen and (max-width: 580px) {
   .techs {
-    padding: 70px 18px;
+    padding: 71px 18px;
   }
 
   .techs_container {
@@ -96,7 +96,7 @@
   }
 
   .techs__text {
-    margin: 24px 0 0;
+    margin: 26px 0 0;
     font-size: 11px;
     line-height: 1.45;
   }

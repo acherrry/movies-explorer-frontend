@@ -20,7 +20,7 @@ function SearchForm() {
           />
         </div>
         <div className="search-form__checkbox">
-        <FilterCheckbox />
+          <FilterCheckbox />
         </div>
       </form>
     </section>

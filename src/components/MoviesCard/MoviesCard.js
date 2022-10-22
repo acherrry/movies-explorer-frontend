@@ -44,7 +44,7 @@ function MoviesCard({ card }) {
         alt={card.nameRU} 
         className="movie-card__image"
       >
-        </img>
+      </img>
     </div>
   )
 }
