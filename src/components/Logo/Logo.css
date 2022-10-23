@@ -1,0 +1,12 @@
+.logo {
+  max-width: 38px;
+  max-height: 38px;
+}
+
+.logo__img {
+  transition: opacity 0.2s linear;
+}
+
+.logo__img:hover {
+  opacity: 0.7;
+}
