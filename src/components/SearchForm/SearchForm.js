@@ -13,6 +13,7 @@ function SearchForm() {
             placeholder="Фильм"
             name="search"
             type="text"
+            required
           />
           <button
             type="submit"
