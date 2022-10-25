@@ -76,6 +76,12 @@
 
 .sign-container__field_error {
   color: #EE3465;
+  border-bottom: 1px solid #EE3465;
+}
+
+.sign-container__field_error:focus {
+  border-bottom: 1px solid #EE3465;
+  outline: none;
 }
 
 .sign-container__error {
@@ -169,6 +175,10 @@
   .sign-container__form {
     width: 260px;
     height: 71.6%;
+  }
+
+  .sign-container__text {
+    margin: 6px 0 0;
   }
 
   .sign-container__content {

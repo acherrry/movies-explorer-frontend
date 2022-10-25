@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import Logo from "../Logo/Logo";
 import "../SignContainer/SignContainer.css";
 
-function SignContainer({ header, children, submit, text, path, link }) {
+function SignContainer({ header, children, submit, text, path, link, isValid }) {
   return (
     <section className="sign-container">
       <div className="sign-container__content">
@@ -17,8 +17,11 @@ function SignContainer({ header, children, submit, text, path, link }) {
           </div>
           <button
             type="submit"
-            className="sign-container__btn-submit"
-          >
+            className={`sign-container__btn-submit ${
+              isValid
+                ? "sign-container__btn-submit"
+                : "sign-container__btn-submit_disabled"
+            }`}>
             {submit}
           </button>
         </form>

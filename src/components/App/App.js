@@ -1,6 +1,7 @@
 import React from "react";
 import { Route, Switch } from "react-router-dom";
 import "./App.css";
+import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import Header from "../Header/Header";
 import Main from "../Main/Main";
 import Footer from "../Footer/Footer";
@@ -13,7 +14,9 @@ import SavedMovies from "../SavedMovies/SavedMovies";
 import PopupInforming from "../PopupInforming/PopupInforming";
 
 function App() {
+  const [currentUser, setCurrentUser] = React.useState({ name: "", email: "" });
   return (
+    <CurrentUserContext.Provider value={currentUser}>
     <div className="App">
 
       <Switch>
@@ -57,6 +60,7 @@ function App() {
       </Switch>
 
     </div>
+    </CurrentUserContext.Provider>
   );
 }
 
