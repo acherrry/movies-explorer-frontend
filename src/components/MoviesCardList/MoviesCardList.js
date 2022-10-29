@@ -1,9 +1,11 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./MoviesCardList.css";
+
 import MoviesCard from "../MoviesCard/MoviesCard";
 
 function MoviesCardList({ movies }) {
-
+  const location = useLocation();
   const [windowWidth, setWindowWidth] = React.useState(0);
   const [limitedMovies, setLimitedMovies] = React.useState([]);
 
@@ -44,7 +46,11 @@ function MoviesCardList({ movies }) {
   return (
     <section className="cards">
       {limitedMovies.length > 0
-      ? <ul className="cards__list">
+      ? <ul className={`cards__list ${
+          (location.pathname !== "/saved-movies")
+            ? "cards__list" 
+            : "cards__list_saved"
+          }`}>
           {cardsElements}
         </ul>
       : <div className="cards__not-found">

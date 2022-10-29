@@ -19,6 +19,10 @@
   flex-wrap: wrap;
 }
 
+.cards__list_saved {
+  margin-bottom: 90px;
+}
+
 .cards__not-found {
   text-align: center;
   font-weight: 500;

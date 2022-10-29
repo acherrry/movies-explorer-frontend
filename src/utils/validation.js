@@ -1,7 +1,7 @@
 import React from "react";
 import { useCallback } from "react";
 import isEmail from 'validator/lib/isEmail';
-import { REG_EXP_USER_NAME } from "./config";
+import regExpUserName from "./config";
 
 export default function useFormWithValidation(initialInputsValues) {
   const [values, setValues] = React.useState(initialInputsValues);
@@ -46,7 +46,7 @@ export default function useFormWithValidation(initialInputsValues) {
             [name]: 'Поле должно содержать от 2 до 30 символов',
           }));
         }
-        else if (REG_EXP_USER_NAME.test(value) !== true) {
+        else if (regExpUserName.test(value) !== true) {
           setErrors((prevState) => ({
             ...prevState,
           [name]: 'Поле может включать буквы русского и латинского алфавита, дефис, пробел',

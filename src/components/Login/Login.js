@@ -3,16 +3,22 @@ import SignContainer from "../SignContainer/SignContainer";
 import "../SignContainer/SignContainer.css";
 import validation from "../../utils/useValidation";
 
-function Login() {
-  const initialLoginData = {
+function Login({ onLogin, isLoading, loginError, setLoginError }) {
+  const loginData = {
     email: "",
     password: "",
   }
 
-  const { values, handleChange, errors, isValid, resetForm } = validation(initialLoginData);
+  const { values, handleChange, errors, isValid, resetForm } = validation(loginData);
 
   function handleInputChange(e) {
     handleChange(e);
+    setLoginError("");
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onLogin({ email: values.email, password: values.password });
   }
 
   return (
@@ -23,6 +29,9 @@ function Login() {
       path="/signup"
       isValid={isValid}
       resetForm={resetForm}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      error={loginError}
     >
       <label className="sign-container__item">
         <p className="sign-container__text">
@@ -38,6 +47,7 @@ function Login() {
           name="email"
           type="email"
           value={values.email}
+          disabled={isLoading}
           autoComplete="off"
           onChange={handleInputChange}
           required
@@ -64,6 +74,7 @@ function Login() {
           name="password"
           type="password"
           value={values.password}
+          disabled={isLoading}
           autoComplete="off"
           onChange={handleInputChange}
           required

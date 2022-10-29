@@ -3,21 +3,27 @@ import SignContainer from "../SignContainer/SignContainer";
 import "../SignContainer/SignContainer.css";
 import validation from "../../utils/useValidation";
 
-function Register() {
-  const initialRegisterData = {
+function Register({ onRegister, isLoading, registerError, setRegisterError }) {
+  const registerData = {
     name: "",
     email: "",
     password: "",
   }
 
-  const { values, handleChange, errors, isValid, resetForm } = validation(initialRegisterData);
+  const { values, handleChange, errors, isValid, resetForm } = validation(registerData);
 
   function handleInputChange(e) {
     handleChange(e);
+    setRegisterError("");
+  }
+
+  function handleSubmit(e) {
+    e.preventDefault();
+    onRegister({ email: values.email, password: values.password, name: values.name });
   }
 
   return (
-    <SignContainer 
+    <SignContainer
       name="register"
       header="Добро пожаловать!"
       submit="Зарегистрироваться"
@@ -26,6 +32,9 @@ function Register() {
       path="/signin"
       isValid={isValid}
       resetForm={resetForm}
+      onSubmit={handleSubmit}
+      isLoading={isLoading}
+      error={registerError}
     >
       <label className="sign-container__item">
         <p className="sign-container__text">
@@ -45,6 +54,7 @@ function Register() {
           minLength="2"
           maxLength="30"
           value={values.name}
+          disabled={isLoading}
           autoComplete="off"
           onChange={handleInputChange}
           required
@@ -72,6 +82,7 @@ function Register() {
           name="email"
           type="email"
           value={values.email}
+          disabled={isLoading}
           autoComplete="off"
           onChange={handleInputChange}
           required
@@ -99,6 +110,7 @@ function Register() {
           name="password"
           type="password"
           value={values.password}
+          disabled={isLoading}
           autoComplete="off"
           onChange={handleInputChange}
           required

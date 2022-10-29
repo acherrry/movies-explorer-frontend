@@ -1,7 +1,9 @@
 import React from "react";
+import { useLocation } from "react-router-dom";
 import "./Footer.css";
 
-function Footer({ linkIsShow }) {
+function Footer() {
+  const location = useLocation();
   return (
     <footer className="footer">
       <p className="footer__text">
@@ -24,7 +26,7 @@ function Footer({ linkIsShow }) {
               </a>
             </li>
             <li className={`footer__nav-item ${
-              linkIsShow
+              (location.pathname !== "/")
                 ? "footer__nav-item"
                 : "footer__nav-item_hidden"
               }`}>

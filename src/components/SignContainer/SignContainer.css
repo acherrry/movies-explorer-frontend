@@ -100,6 +100,13 @@
   visibility: visible;
 }
 
+.sign-container__error-informing {
+  color: #DC143C;
+  font-weight: 500;
+  font-size: 13px;
+  line-height: 1.25;
+}
+
 .sign-container__btn-submit {
   cursor: pointer;
   align-self: flex-end;
@@ -183,13 +190,18 @@
 
   .sign-container__content {
     align-items: center;
-    padding: 56px 0 30px;
+    padding: 54px 0 25px;
     row-gap: 14px;
     height: 89%;
   }
 
   .sign-container__title {
     margin: 36px 0 42px;
+  }
+
+  .sign-container__error-informing {
+    text-align: center;
+    font-size: 12px;
   }
 
   .sign-container__btn-submit {
