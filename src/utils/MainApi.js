@@ -42,7 +42,7 @@ export const loginOut = (res) => {
   .catch(err => console.log(err))
 };
 
-export const getUserInfo = () => {
+export function getUserInfo() {
   return fetch(`${MAIN_API}/users/me`, {
     credentials: 'include',
     method: 'GET',
@@ -51,8 +51,7 @@ export const getUserInfo = () => {
   .then(checkResponse);
 };
 
-export const editProfile = ({ name, email }) => {
-  console.log({ name, email });
+export function editProfile({ name, email }) {
   return fetch(`${MAIN_API}/users/me`, {
     credentials: 'include',
     method: 'PATCH',
