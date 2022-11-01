@@ -30,8 +30,8 @@ function App() {
       MainApi.getUserInfo()
       .then((user) => {
         localStorage.setItem('loggedIn', 'true');
-        setCurrentUser(user);
         setLoggedIn(true);
+        setCurrentUser(user);
       })
       .catch((err) => {
         localStorage.removeItem('loggedIn');
@@ -43,6 +43,7 @@ function App() {
     setIsLoading(true);
     MainApi.login({ email, password })
       .then((res) => {
+        localStorage.setItem('loggedIn', 'true');
         setLoggedIn(true);
         history.push("/movies");
         setCurrentUser(res);

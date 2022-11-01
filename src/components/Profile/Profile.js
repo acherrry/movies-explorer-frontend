@@ -1,7 +1,7 @@
 import React from "react";
 import "./Profile.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
-import validation from "../../utils/useValidation";
+import useValidation from "../../utils/useValidation";
 
 function Profile({ onUpdateUser, onSignOut, isLoading }) {
   const currentUser = React.useContext(CurrentUserContext);
@@ -12,7 +12,7 @@ function Profile({ onUpdateUser, onSignOut, isLoading }) {
     email: currentUser.email,
   };
 
-  const { values, handleChange, errors, isValid } = validation(initialProfileData);
+  const { values, handleChange, errors, isValid } = useValidation(initialProfileData);
   console.log(values);
 
   function handleSubmit(e) {
@@ -72,11 +72,11 @@ function Profile({ onUpdateUser, onSignOut, isLoading }) {
             </p>
             <input 
               className={`profile__input ${
-                errors.name 
+                errors.email 
                   ? "profile__input_error"
                   : "profile__input"
               }`}
-              id="email"
+              id="profile-email"
               placeholder="Укажите e-mail"
               name="email"
               type="email"

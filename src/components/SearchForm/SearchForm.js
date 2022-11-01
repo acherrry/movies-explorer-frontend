@@ -2,7 +2,7 @@ import React from "react";
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.js";
 
-function SearchForm({ onSearchMovie }) {
+function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
   const [searchText, setSearchText] = React.useState("");
   const [searchError, setSearchError] = React.useState("");
 
@@ -10,6 +10,7 @@ function SearchForm({ onSearchMovie }) {
     const target = e.target;
     const value = target.value;
     setSearchText(value);
+    localStorage.setItem('searchText', value)
   }
 
   function handleSubmit(e) {
@@ -22,6 +23,10 @@ function SearchForm({ onSearchMovie }) {
   React.useEffect(() => {
     setSearchError("");
 }, [searchText]);
+
+  React.useEffect(() => {
+    setSearchText(localStorage.getItem('searchText'));
+  }, []);
 
   return (
     <section className="search-form">
@@ -59,7 +64,10 @@ function SearchForm({ onSearchMovie }) {
           />
         </div>
         <div className="search-form__checkbox">
-          <FilterCheckbox />
+          <FilterCheckbox 
+            tumbler={tumbler}
+            handleFilterDuration={handleFilterDuration}
+          />
         </div>
       </form>
     </section>

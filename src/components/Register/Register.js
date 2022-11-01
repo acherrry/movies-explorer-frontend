@@ -1,7 +1,7 @@
 import React from "react";
 import SignContainer from "../SignContainer/SignContainer";
 import "../SignContainer/SignContainer.css";
-import validation from "../../utils/useValidation";
+import useValidation from "../../utils/useValidation";
 
 function Register({ onRegister, isLoading, registerError, setRegisterError }) {
   const registerData = {
@@ -10,7 +10,7 @@ function Register({ onRegister, isLoading, registerError, setRegisterError }) {
     password: "",
   }
 
-  const { values, handleChange, errors, isValid, resetForm } = validation(registerData);
+  const { values, handleChange, errors, isValid, resetForm } = useValidation(registerData);
 
   function handleInputChange(e) {
     handleChange(e);
