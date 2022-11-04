@@ -63,3 +63,43 @@ export function editProfile({ name, email }) {
   })
   .then(checkResponse);
 };
+
+export function addMovieFavorites(favoriteMovieObject) {
+  return fetch(`${MAIN_API}/movies`, {
+    credentials: 'include',
+    method: 'POST',
+    headers: HEADERS,
+    body: JSON.stringify({
+      country: favoriteMovieObject.country,
+      director: favoriteMovieObject.director,
+      duration: favoriteMovieObject.duration,
+      year: favoriteMovieObject.year,
+      description: favoriteMovieObject.description,
+      image: favoriteMovieObject.image,
+      trailerLink: favoriteMovieObject.trailerLink,
+      thumbnail: favoriteMovieObject.thumbnail,
+      movieId: favoriteMovieObject.movieId,
+      nameRU: favoriteMovieObject.nameRU,
+      nameEN: favoriteMovieObject.nameEN,
+    })
+  })
+  .then(checkResponse);
+};
+
+export function getSavedMovies() {
+  return fetch(`${MAIN_API}/movies`, {
+    credentials: 'include',
+    method: 'GET',
+    headers: HEADERS
+  })
+  .then(checkResponse);
+};
+
+export function deleteSavedMovie(movieId) {
+  return fetch(`${MAIN_API}/movies/${movieId}`, {
+    credentials: 'include',
+    method: 'DELETE',
+    headers: HEADERS
+  })
+  .then(checkResponse);
+};

@@ -10,8 +10,19 @@ import "./Movies.css";
 
 import * as MoviesApi from "../../utils/MoviesApi";
 import { filteredMoviesByDuration, filteredMoviesByKeyWord} from "../../utils/dataFiltering";
+import useWindowWidth from "../../utils/useWindowWidth";
 
-function Movies({ loggedIn }) {
+import {
+  MAX_WIDTH_SCREEN,
+  MEDIUM_WIDTH_SCREEN,
+  MAX_AMOUNT_CARDS,
+  MEDIUM_AMOUNT_CARDS,
+  MIN_AMOUNT_CARDS,
+  AMOUNT_CARDS_ADD_ON_SCREEN_MAX_WIDTH,
+  AMOUNT_CARDS_ADD_ON_SCREEN_MEDIUM_WIDTH,
+} from "../../utils/config";
+
+function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMovieFavorites }) {
   const [movies, setMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
@@ -20,7 +31,7 @@ function Movies({ loggedIn }) {
   const [isLoading, setIsLoading] = React.useState(false);
   const [isFoundActive, setIsFoundActive] = React.useState(false);
   const [isFilterDurationActive, setIsFilterDurationActive] = React.useState(false);
-  const [windowWidth, setWindowWidth] = React.useState(0);
+  const windowWidth = useWindowWidth();
 
   function onSearchMovie(searchText) {
     setIsLoading(true);
@@ -33,7 +44,6 @@ function Movies({ loggedIn }) {
         const filteredAllMoviesArray = filteredMoviesByKeyWord(allMoviesArray, searchText);
         setFoundMovies(filteredAllMoviesArray);
         localStorage.setItem('foundMovies', JSON.stringify(filteredAllMoviesArray));
-        
       })
       .catch((err) => {
         console.log(err);
@@ -47,6 +57,7 @@ function Movies({ loggedIn }) {
       setIsLoading(false);
       setIsFoundActive(false);
     }
+    localStorage.setItem('searchText', searchText)
     isFilterDurationActive
       ? localStorage.setItem('filterDurationActive', true)
       : localStorage.removeItem('filterDurationActive')
@@ -57,7 +68,7 @@ function Movies({ loggedIn }) {
       ? localStorage.removeItem('filterDurationActive')
       : localStorage.setItem('filterDurationActive', true)
       setIsFilterDurationActive((prevState) => !prevState)
-  }
+  };
 
   React.useEffect(() => {
     isFilterDurationActive
@@ -74,24 +85,14 @@ function Movies({ loggedIn }) {
     }
   }, []);
 
-  function resizeWindowWidth() {
-    setWindowWidth(window.innerWidth)
-  };
-
-  React.useEffect(() => {
-    resizeWindowWidth();
-    window.addEventListener('resize', resizeWindowWidth);
-    return () => window.removeEventListener('resize', resizeWindowWidth);
-  }, []);
-
   React.useEffect(() => {
     let limitedCards;
-    if (windowWidth > 1024) {
-      limitedCards = 12
-    } else if (windowWidth > 620) {
-      limitedCards = 8
+    if (windowWidth > MAX_WIDTH_SCREEN) {
+      limitedCards = MAX_AMOUNT_CARDS
+    } else if (windowWidth > MEDIUM_WIDTH_SCREEN) {
+      limitedCards = MEDIUM_AMOUNT_CARDS
     } else {
-      limitedCards = 5
+      limitedCards = MIN_AMOUNT_CARDS
     };
     if (filteredMovies.length > limitedCards) {
       setLimitedMovies(filteredMovies.slice(0, limitedCards))
@@ -99,6 +100,15 @@ function Movies({ loggedIn }) {
       setLimitedMovies(filteredMovies)
     }
   }, [windowWidth, filteredMovies]);
+
+  function handleAddMoviesCard() {
+    let connection = windowWidth > MAX_WIDTH_SCREEN
+      ? AMOUNT_CARDS_ADD_ON_SCREEN_MAX_WIDTH
+      : AMOUNT_CARDS_ADD_ON_SCREEN_MEDIUM_WIDTH;
+    setLimitedMovies((previousValue) => {
+      return previousValue.concat(filteredMovies.slice(previousValue.length, previousValue.length + connection));
+    });
+  };
 
   return (
   <section className="movies">
@@ -129,6 +139,10 @@ function Movies({ loggedIn }) {
     {filteredMovies.length > 0 && !isLoading && !isFoundActive
       ? <MoviesCardList
           movies={limitedMovies}
+          moviesPage={true}
+          handleAddMovieFavorites={handleAddMovieFavorites}
+          handleDeleteMovieFavorites={handleDeleteMovieFavorites}
+          savedMovies={savedMovies}
         />
         : ''}
 
@@ -136,6 +150,7 @@ function Movies({ loggedIn }) {
       ? <button
           className="movies__btn-add"
           type="button"
+          onClick={handleAddMoviesCard}
         >
           Ещё
         </button>

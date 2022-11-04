@@ -4,17 +4,21 @@ import "./MoviesCardList.css";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies }) {
+function MoviesCardList({ movies, savedMovies, handleAddMovieFavorites, handleDeleteMovieFavorites, moviesPage }) {
   const location = useLocation();
 
   const cardsElements = movies.map(item =>
-    <li className="cards__item" key={item.id}>
+    <li className="cards__item" key={item._id || item.id}>
       <MoviesCard
         card={item}
+        moviesPage={moviesPage}
+        savedMovies={savedMovies}
+        handleAddMovieFavorites={handleAddMovieFavorites}
+        handleDeleteMovieFavorites={handleDeleteMovieFavorites}
       />
     </li>
     );
-
+    
   return (
     <section className="cards">
       <ul className={`cards__list ${

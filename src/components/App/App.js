@@ -20,18 +20,20 @@ function App() {
   const [loggedIn, setLoggedIn] = React.useState(localStorage.getItem('loggedIn'));
   const [loginError, setLoginError] = React.useState("");
   const [registerError, setRegisterError] = React.useState("");
+  const [isMoviesSaveError, setIsMoviesSaveError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isInfoTooltip, setIsInfoTooltip] = React.useState(false);
   const [tooltipText, setTooltipText] = React.useState("");
+  const [savedMovies, setSavedMovies] = React.useState([]);
 
   const history = useHistory();
 
   React.useEffect(() => {
       MainApi.getUserInfo()
       .then((user) => {
-        localStorage.setItem('loggedIn', 'true');
+        localStorage.setItem('loggedIn', true);
         setLoggedIn(true);
-        setCurrentUser(user);
+        setCurrentUser({name: user.name, email: user.email});
       })
       .catch((err) => {
         localStorage.removeItem('loggedIn');
@@ -39,11 +41,25 @@ function App() {
       });
   }, []);
 
+  React.useEffect(() => {
+    if(loggedIn) {
+      MainApi.getSavedMovies()
+      .then((res) => {
+        setSavedMovies(res);
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsMoviesSaveError(true);
+      })
+    }
+  }, [loggedIn]);
+
   const onLogin = ({ email, password }) => {
     setIsLoading(true);
     MainApi.login({ email, password })
       .then((res) => {
-        localStorage.setItem('loggedIn', 'true');
+        console.log(res);
+        localStorage.setItem('loggedIn', true);
         setLoggedIn(true);
         history.push("/movies");
         setCurrentUser(res);
@@ -74,7 +90,7 @@ function App() {
     MainApi.loginOut()
       .then(() => {
         setLoggedIn(false);
-        localStorage.removeItem('loggedIn');
+        localStorage.clear();
         history.push("/");
         setCurrentUser(null);
       })
@@ -89,7 +105,6 @@ function App() {
     MainApi.editProfile({ name, email })
       .then((res) => {
         setCurrentUser(res);
-        console.log(res);
         setTooltipText('Данные успешно обновлены!');
       })
       .catch((err) => {
@@ -97,6 +112,28 @@ function App() {
         console.log(err.message);
       })
       .finally(() => setIsLoading(false));
+  }
+
+  function handleAddMovieFavorites(movieObject) {
+    MainApi.addMovieFavorites(movieObject)
+      .then((newMovie) => {
+        setSavedMovies([newMovie, ...savedMovies]);
+        })
+      .catch((err) => {
+        console.log(err.message);
+      })
+  }
+
+  function handleDeleteMovieFavorites(movieId) {
+    MainApi.deleteSavedMovie(movieId)
+      .then((movie) => {
+        setSavedMovies((previousValue) => {
+          return previousValue.filter((d) => (d._id !== movie._id))
+        })
+        })
+      .catch((err) => {
+        console.log(err.message);
+      })
   }
 
   function closePopupInforming() {
@@ -116,15 +153,21 @@ function App() {
         </Route>
 
         <ProtectedRoute
-          path="/movies" 
+          path="/movies"
+          savedMovies={savedMovies}
           loggedIn={loggedIn} 
           component={Movies}
+          handleAddMovieFavorites={handleAddMovieFavorites}
+          handleDeleteMovieFavorites={handleDeleteMovieFavorites}
         />
 
         <ProtectedRoute 
-          path="/saved-movies" 
+          path="/saved-movies"
+          savedMovies={savedMovies}
           loggedIn={loggedIn} 
           component={SavedMovies}
+          isMoviesSaveError={isMoviesSaveError}
+          handleDeleteMovieFavorites={handleDeleteMovieFavorites}
         />
 
         <ProtectedRoute

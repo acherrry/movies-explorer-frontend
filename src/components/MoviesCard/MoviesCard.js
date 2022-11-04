@@ -4,17 +4,43 @@ import "./MoviesCard.css";
 import { REG_EXP_URL } from "../../utils/config";
 import { durationConversion } from "../../utils/durationСonversion";
 
-function MoviesCard({ card }) {
+function MoviesCard({ card, savedMovies, handleAddMovieFavorites, handleDeleteMovieFavorites, moviesPage }) {
+
   const { pathname } = useLocation();
 
-  const [favorite, setFavorite] = React.useState(false);
+  const [favoriteMovie, setFavoriteMovie] = React.useState(null);
 
   const trailerLink = REG_EXP_URL.test(card.trailerLink) 
-    ? card.trailerLink
-    : 'https://www.youtube.com';
+  ? card.trailerLink
+  : 'https://www.youtube.com';
+  
+  React.useEffect(() => {
+    console.log(savedMovies);
+    if(pathname !== '/saved-movies') {
+      setFavoriteMovie(savedMovies.find((i) => (Number(i.movieId)) === card.id));
+    }
+}, [pathname, savedMovies, card.id]);
 
   function handleFavoriteBtnClick() {
-    setFavorite(!favorite);
+    favoriteMovie
+    ? handleDeleteMovieFavorites(favoriteMovie._id)
+    : handleAddMovieFavorites({
+      country: card.country,
+      director: card.director,
+      duration: card.duration,
+      year: card.year,
+      description: card.description,
+      image: 'https://api.nomoreparties.co/' + card.image.url,
+      trailerLink: card.trailerLink,
+      thumbnail: 'https://api.nomoreparties.co/' + card.thumbnail,
+      movieId: card.id,
+      nameRU: card.nameRU,
+      nameEN: card.nameEN,
+    })
+  }
+  
+  function deleteSavedMovie() {
+    handleDeleteMovieFavorites(card._id);
   }
 
   return (
@@ -36,7 +62,9 @@ function MoviesCard({ card }) {
           </div>
         </div>
         <img 
-          src={('https://api.nomoreparties.co/' + card.image.url)}
+          src={pathname !== '/saved-movies'
+            ? ('https://api.nomoreparties.co/' + card.image.url)
+            : card.image}
           alt={card.nameRU} 
           className="movie-card__image"
         >
@@ -47,13 +75,16 @@ function MoviesCard({ card }) {
         ? <button 
             className="movie-card__btn movie-card__btn_delete"
             type="button"
+            aria-label="Удалить из избранного"
+            onClick={deleteSavedMovie}
         />
 
         : <button
             className={`movie-card__btn ${
-              favorite 
-                ? "movie-card__btn_favorites-active" 
-                : "movie-card__btn"}`}
+              favoriteMovie
+                ? "movie-card__btn_favorites-active"
+                : "movie-card__btn"
+              }`}
             type="button"
             aria-label="Добавить в избранное"
             onClick={handleFavoriteBtnClick}

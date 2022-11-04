@@ -4,13 +4,13 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.js";
 
 function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
   const [searchText, setSearchText] = React.useState("");
+  console.log(searchText)
   const [searchError, setSearchError] = React.useState("");
 
   function handleInputChange(e) {
     const target = e.target;
     const value = target.value;
     setSearchText(value);
-    localStorage.setItem('searchText', value)
   }
 
   function handleSubmit(e) {
