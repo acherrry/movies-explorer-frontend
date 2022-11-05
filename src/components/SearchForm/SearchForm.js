@@ -2,7 +2,10 @@ import React from "react";
 import './SearchForm.css';
 import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.js";
 
+import { useLocation } from "react-router-dom";
+
 function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
+  const { pathname } = useLocation();
   const [searchText, setSearchText] = React.useState("");
   console.log(searchText)
   const [searchError, setSearchError] = React.useState("");
@@ -25,8 +28,18 @@ function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
 }, [searchText]);
 
   React.useEffect(() => {
-    setSearchText(localStorage.getItem('searchText'));
-  }, []);
+    if (pathname === '/movies') {
+      const textSearch = localStorage.getItem('searchText');
+      if (textSearch) {
+        setSearchText(textSearch)
+      }
+    } else if (pathname === '/saved-movies') {
+      const searchTextSavedMovie = localStorage.getItem('searchTextSavedMovie');
+      if (searchTextSavedMovie) {
+        setSearchText(searchTextSavedMovie)
+      }
+    }
+  }, [pathname]);
 
   return (
     <section className="search-form">

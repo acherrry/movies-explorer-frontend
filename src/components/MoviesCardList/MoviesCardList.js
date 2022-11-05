@@ -4,14 +4,13 @@ import "./MoviesCardList.css";
 
 import MoviesCard from "../MoviesCard/MoviesCard";
 
-function MoviesCardList({ movies, savedMovies, handleAddMovieFavorites, handleDeleteMovieFavorites, moviesPage }) {
+function MoviesCardList({ movies, savedMovies, handleAddMovieFavorites, handleDeleteMovieFavorites }) {
   const location = useLocation();
 
   const cardsElements = movies.map(item =>
     <li className="cards__item" key={item._id || item.id}>
       <MoviesCard
         card={item}
-        moviesPage={moviesPage}
         savedMovies={savedMovies}
         handleAddMovieFavorites={handleAddMovieFavorites}
         handleDeleteMovieFavorites={handleDeleteMovieFavorites}

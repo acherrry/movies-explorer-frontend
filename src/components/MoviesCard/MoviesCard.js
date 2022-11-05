@@ -16,7 +16,7 @@ function MoviesCard({ card, savedMovies, handleAddMovieFavorites, handleDeleteMo
   
   React.useEffect(() => {
     console.log(savedMovies);
-    if(pathname !== '/saved-movies') {
+    if (pathname !== '/saved-movies') {
       setFavoriteMovie(savedMovies.find((i) => (Number(i.movieId)) === card.id));
     }
 }, [pathname, savedMovies, card.id]);

@@ -9,21 +9,35 @@ import Footer from "../Footer/Footer";
 
 import { filteredMoviesByDuration, filteredMoviesByKeyWord} from "../../utils/dataFiltering";
 
-function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError }) {
+function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError, handleDeleteMovieFavorites }) {
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [isFilterDurationActive, setIsFilterDurationActive] = React.useState(false);
 
   function onSearchMovie(searchText) {
     setFoundMovies(filteredMoviesByKeyWord(savedMovies, searchText));
+    localStorage.setItem('searchTextSavedMovie', searchText)
+    isFilterDurationActive
+      ? localStorage.setItem('filterDurationActiveSavedMovie', true)
+      : localStorage.removeItem('filterDurationActiveSavedMovie')
   };
 
   function handleFilterDuration() {
+    isFilterDurationActive
+      ? localStorage.removeItem('filterDurationActiveSavedMovie')
+      : localStorage.setItem('filterDurationActiveSavedMovie', true)
     setIsFilterDurationActive((prevState) => !prevState)
   };
 
   React.useEffect(() => {
-    setFoundMovies(savedMovies)
+    const tumbler = localStorage.getItem('filterDurationActiveSavedMovie');
+    if (tumbler !== null) {
+      setIsFilterDurationActive(true);
+    }
+  }, []);
+
+  React.useEffect(() => {
+    setFoundMovies(savedMovies.reverse())
   }, [savedMovies]);
   console.log(savedMovies);
 
@@ -40,6 +54,7 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError }) {
       <SearchForm 
         onSearchMovie={onSearchMovie}
         handleFilterDuration={handleFilterDuration}
+        tumbler={isFilterDurationActive}
       />
 
       {isMoviesSaveError 
@@ -59,7 +74,7 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError }) {
       {filteredMovies.length > 0 && !isMoviesSaveError
       ? <MoviesCardList
         movies={filteredMovies}
-        moviesPage={false}
+        handleDeleteMovieFavorites={handleDeleteMovieFavorites}
       />
         : ''}
 

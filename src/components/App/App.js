@@ -3,9 +3,7 @@ import { Route, Switch, useHistory } from "react-router-dom";
 import "./App.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
-import Header from "../Header/Header";
 import Main from "../Main/Main";
-import Footer from "../Footer/Footer";
 import Profile from "../Profile/Profile";
 import Register from "../Register/Register";
 import Login from "../Login/Login";
@@ -128,7 +126,7 @@ function App() {
     MainApi.deleteSavedMovie(movieId)
       .then((movie) => {
         setSavedMovies((previousValue) => {
-          return previousValue.filter((d) => (d._id !== movie._id))
+          return previousValue.filter((d) => (d._id !== movie._id)).reverse();
         })
         })
       .catch((err) => {
@@ -147,9 +145,7 @@ function App() {
       <Switch>
 
         <Route exact path="/">
-          <Header loggedIn={loggedIn} />
-          <Main />
-          <Footer linkIsShow={false}/>
+          <Main loggedIn={loggedIn}/>
         </Route>
 
         <ProtectedRoute

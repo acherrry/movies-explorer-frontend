@@ -26,7 +26,9 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
   const [movies, setMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
+  console.log(filteredMovies);
   const [limitedMovies, setLimitedMovies] = React.useState([]);
+  console.log(limitedMovies);
   const [isFoundError, setIsFoundError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isFoundActive, setIsFoundActive] = React.useState(false);
@@ -44,6 +46,7 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
         const filteredAllMoviesArray = filteredMoviesByKeyWord(allMoviesArray, searchText);
         setFoundMovies(filteredAllMoviesArray);
         localStorage.setItem('foundMovies', JSON.stringify(filteredAllMoviesArray));
+        setIsFoundActive(false);
       })
       .catch((err) => {
         console.log(err);
@@ -77,10 +80,15 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
   }, [isFilterDurationActive, foundMovies]);
 
   React.useEffect(() => {
-    setMovies(JSON.parse(localStorage.getItem('movies')));
-    setFoundMovies(JSON.parse(localStorage.getItem('foundMovies')));
+    const allMovies = localStorage.getItem('movies');
+    const foundMovies = localStorage.getItem('foundMovies');
     const tumbler = localStorage.getItem('filterDurationActive');
-    if (tumbler !== null) {
+
+    if (allMovies !== null) {
+      setMovies(JSON.parse(allMovies));
+    } if (foundMovies !== null) {
+      setFoundMovies(JSON.parse(foundMovies));
+    } if (tumbler !== null) {
       setIsFilterDurationActive(true);
     }
   }, []);
@@ -130,21 +138,20 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
         </div>
       : ''}
 
-    {filteredMovies.length === 0 && !isLoading && !isFoundActive
+    {filteredMovies.length === 0 && !isLoading && !isFoundError
       ? <div className="movies__not-found">
           Ничего не найдено.
         </div>
         : ''}
     
     {filteredMovies.length > 0 && !isLoading && !isFoundActive
-      ? <MoviesCardList
+      && <MoviesCardList
           movies={limitedMovies}
-          moviesPage={true}
           handleAddMovieFavorites={handleAddMovieFavorites}
           handleDeleteMovieFavorites={handleDeleteMovieFavorites}
           savedMovies={savedMovies}
         />
-        : ''}
+      }
 
     {limitedMovies.length < filteredMovies.length
       ? <button
