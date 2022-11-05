@@ -13,7 +13,7 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError, handleDeleteMov
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
   const [isFilterDurationActive, setIsFilterDurationActive] = React.useState(false);
-
+  
   function onSearchMovie(searchText) {
     setFoundMovies(filteredMoviesByKeyWord(savedMovies, searchText));
     localStorage.setItem('searchTextSavedMovie', searchText)
@@ -30,6 +30,12 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError, handleDeleteMov
   };
 
   React.useEffect(() => {
+    isFilterDurationActive
+    ? setFilteredMovies(filteredMoviesByDuration(foundMovies))
+    : setFilteredMovies(foundMovies);
+  }, [isFilterDurationActive, foundMovies]);
+
+  React.useEffect(() => {
     const tumbler = localStorage.getItem('filterDurationActiveSavedMovie');
     if (tumbler !== null) {
       setIsFilterDurationActive(true);
@@ -37,15 +43,8 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError, handleDeleteMov
   }, []);
 
   React.useEffect(() => {
-    setFoundMovies(savedMovies.reverse())
+    setFoundMovies(savedMovies)
   }, [savedMovies]);
-  console.log(savedMovies);
-
-  React.useEffect(() => {
-    isFilterDurationActive
-    ? setFilteredMovies(filteredMoviesByDuration(foundMovies))
-    : setFilteredMovies(foundMovies);
-  }, [isFilterDurationActive, foundMovies]);
 
   return (
     <section className="saved-movies">

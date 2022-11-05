@@ -15,7 +15,6 @@ function MoviesCard({ card, savedMovies, handleAddMovieFavorites, handleDeleteMo
   : 'https://www.youtube.com';
   
   React.useEffect(() => {
-    console.log(savedMovies);
     if (pathname !== '/saved-movies') {
       setFavoriteMovie(savedMovies.find((i) => (Number(i.movieId)) === card.id));
     }

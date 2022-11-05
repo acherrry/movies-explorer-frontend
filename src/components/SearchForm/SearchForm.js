@@ -7,7 +7,6 @@ import { useLocation } from "react-router-dom";
 function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
   const { pathname } = useLocation();
   const [searchText, setSearchText] = React.useState("");
-  console.log(searchText)
   const [searchError, setSearchError] = React.useState("");
 
   function handleInputChange(e) {

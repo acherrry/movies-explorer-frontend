@@ -26,9 +26,7 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
   const [movies, setMovies] = React.useState([]);
   const [foundMovies, setFoundMovies] = React.useState([]);
   const [filteredMovies, setFilteredMovies] = React.useState([]);
-  console.log(filteredMovies);
   const [limitedMovies, setLimitedMovies] = React.useState([]);
-  console.log(limitedMovies);
   const [isFoundError, setIsFoundError] = React.useState(false);
   const [isLoading, setIsLoading] = React.useState(false);
   const [isFoundActive, setIsFoundActive] = React.useState(false);

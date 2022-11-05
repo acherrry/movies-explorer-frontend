@@ -13,7 +13,6 @@ function Profile({ onUpdateUser, onSignOut, isLoading }) {
   };
 
   const { values, handleChange, errors, isValid } = useValidation(initialProfileData);
-  console.log(values);
 
   function handleSubmit(e) {
     e.preventDefault();

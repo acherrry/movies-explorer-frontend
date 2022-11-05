@@ -37,26 +37,25 @@ function App() {
         localStorage.removeItem('loggedIn');
         console.log(err.message);
       });
-  }, []);
+  }, [loggedIn, history]);
 
   React.useEffect(() => {
     if(loggedIn) {
       MainApi.getSavedMovies()
       .then((res) => {
-        setSavedMovies(res);
+        setSavedMovies(res.reverse());
       })
       .catch((err) => {
         console.log(err);
         setIsMoviesSaveError(true);
       })
     }
-  }, [loggedIn]);
+  }, [loggedIn, history]);
 
   const onLogin = ({ email, password }) => {
     setIsLoading(true);
     MainApi.login({ email, password })
       .then((res) => {
-        console.log(res);
         localStorage.setItem('loggedIn', true);
         setLoggedIn(true);
         history.push("/movies");
@@ -126,7 +125,7 @@ function App() {
     MainApi.deleteSavedMovie(movieId)
       .then((movie) => {
         setSavedMovies((previousValue) => {
-          return previousValue.filter((d) => (d._id !== movie._id)).reverse();
+          return previousValue.filter((d) => (d._id !== movie._id));
         })
         })
       .catch((err) => {
