@@ -14,6 +14,7 @@
 ## Ссылки
 * [Критерии диплома веб-разработчика](https://code.s3.yandex.net/web-developer/static/new-program/web-diploma-criteria-2.0/index.html),   
 * [Макет диплома - Яндекс.Диск](https://disk.yandex.ru/d/heDiGnuil8IWIg),  
+* [Ссылка на pull request](https://github.com/acherrry/movies-explorer-frontend/pull/2),  
 * IP 62.84.116.155,  
 * Frontend: https://movies-chernyadeva.nomoredomains.icu,  
 * Backend: https://api.movies-chernyadeva.nomoredomains.icu.
