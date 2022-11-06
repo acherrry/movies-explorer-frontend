@@ -79,6 +79,7 @@ function Profile({ onUpdateUser, onSignOut, isLoading }) {
               placeholder="Укажите e-mail"
               name="email"
               type="email"
+              pattern='^[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,}$'
               value={values.email}
               disabled={isLoading}
               autoComplete="off"

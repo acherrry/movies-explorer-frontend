@@ -1,5 +1,5 @@
 import React from "react";
-import { Route, Switch, useHistory } from "react-router-dom";
+import { Route, Switch, Redirect, useHistory } from "react-router-dom";
 import "./App.css";
 import { CurrentUserContext } from "../../contexts/CurrentUserContext";
 import ProtectedRoute from "../ProtectedRoute/ProtectedRoute";
@@ -25,32 +25,6 @@ function App() {
   const [savedMovies, setSavedMovies] = React.useState([]);
 
   const history = useHistory();
-
-  React.useEffect(() => {
-      MainApi.getUserInfo()
-      .then((user) => {
-        localStorage.setItem('loggedIn', true);
-        setLoggedIn(true);
-        setCurrentUser({name: user.name, email: user.email});
-      })
-      .catch((err) => {
-        localStorage.removeItem('loggedIn');
-        console.log(err.message);
-      });
-  }, [loggedIn, history]);
-
-  React.useEffect(() => {
-    if(loggedIn) {
-      MainApi.getSavedMovies()
-      .then((res) => {
-        setSavedMovies(res.reverse());
-      })
-      .catch((err) => {
-        console.log(err);
-        setIsMoviesSaveError(true);
-      })
-    }
-  }, [loggedIn, history]);
 
   const onLogin = ({ email, password }) => {
     setIsLoading(true);
@@ -96,6 +70,33 @@ function App() {
       });
   };
 
+  React.useEffect(() => {
+    if(loggedIn === true) {
+      MainApi.getSavedMovies()
+      .then((res) => {
+        setSavedMovies(res.reverse());
+      })
+      .catch((err) => {
+        console.log(err);
+        setIsMoviesSaveError(true);
+      })
+    }
+  }, [loggedIn, history]);
+
+  React.useEffect(() => {
+    MainApi.getUserInfo()
+    .then((user) => {
+      localStorage.setItem('loggedIn', true);
+      setLoggedIn(true);
+      setCurrentUser({name: user.name, email: user.email});
+    })
+    .catch((err) => {
+      setLoggedIn(false);
+      localStorage.removeItem('loggedIn');
+      console.log(err.message);
+    });
+}, [loggedIn, history]);
+
   const onUpdateUser = ({ name, email }) => {
     setIsLoading(true);
     setIsInfoTooltip(true);
@@ -107,6 +108,9 @@ function App() {
       .catch((err) => {
         setTooltipText(err.message);
         console.log(err.message);
+        if (err.message === 'Чтобы выполнить действия, пожалуйста, авторизуйтесь') {
+          onSignOut();
+        }
       })
       .finally(() => setIsLoading(false));
   }
@@ -118,6 +122,9 @@ function App() {
         })
       .catch((err) => {
         console.log(err.message);
+        if (err.message === 'Чтобы выполнить действия, пожалуйста, авторизуйтесь') {
+          onSignOut();
+        }
       })
   }
 
@@ -130,6 +137,9 @@ function App() {
         })
       .catch((err) => {
         console.log(err.message);
+        if (err.message === 'Чтобы выполнить действия, пожалуйста, авторизуйтесь') {
+          onSignOut();
+        }
       })
   }
 
@@ -181,6 +191,7 @@ function App() {
             setRegisterError={setRegisterError}
             isLoading={isLoading}
           />
+          {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signup" />}
         </Route>
 
         <Route path="/signin">
@@ -190,6 +201,7 @@ function App() {
             setLoginError={setLoginError}
             isLoading={isLoading}
           />
+          {loggedIn ? <Redirect to="/movies" /> : <Redirect to="/signin" />}
         </Route>
 
         <Route path="*">

@@ -29,6 +29,7 @@ function SignContainer({
             {error}
           </div>
           <button
+            disabled={!isValid}
             type="submit"
             className={`sign-container__btn-submit ${
               isValid

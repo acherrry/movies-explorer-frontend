@@ -4,7 +4,7 @@ import FilterCheckbox from "../FilterCheckbox/FilterCheckbox.js";
 
 import { useLocation } from "react-router-dom";
 
-function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
+function SearchForm({ onSearchMovie, tumbler, handleFilterDuration, isLoading }) {
   const { pathname } = useLocation();
   const [searchText, setSearchText] = React.useState("");
   const [searchError, setSearchError] = React.useState("");
@@ -32,11 +32,6 @@ function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
       if (textSearch) {
         setSearchText(textSearch)
       }
-    } else if (pathname === '/saved-movies') {
-      const searchTextSavedMovie = localStorage.getItem('searchTextSavedMovie');
-      if (searchTextSavedMovie) {
-        setSearchText(searchTextSavedMovie)
-      }
     }
   }, [pathname]);
 
@@ -61,6 +56,7 @@ function SearchForm({ onSearchMovie, tumbler, handleFilterDuration }) {
             value={searchText}
             autoComplete="off"
             onChange={handleInputChange}
+            disabled={isLoading}
             required
           />
           <span className={`search-form__error ${

@@ -16,16 +16,9 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError, handleDeleteMov
   
   function onSearchMovie(searchText) {
     setFoundMovies(filteredMoviesByKeyWord(savedMovies, searchText));
-    localStorage.setItem('searchTextSavedMovie', searchText)
-    isFilterDurationActive
-      ? localStorage.setItem('filterDurationActiveSavedMovie', true)
-      : localStorage.removeItem('filterDurationActiveSavedMovie')
   };
 
   function handleFilterDuration() {
-    isFilterDurationActive
-      ? localStorage.removeItem('filterDurationActiveSavedMovie')
-      : localStorage.setItem('filterDurationActiveSavedMovie', true)
     setIsFilterDurationActive((prevState) => !prevState)
   };
 
@@ -34,13 +27,6 @@ function SavedMovies({ loggedIn, savedMovies, isMoviesSaveError, handleDeleteMov
     ? setFilteredMovies(filteredMoviesByDuration(foundMovies))
     : setFilteredMovies(foundMovies);
   }, [isFilterDurationActive, foundMovies]);
-
-  React.useEffect(() => {
-    const tumbler = localStorage.getItem('filterDurationActiveSavedMovie');
-    if (tumbler !== null) {
-      setIsFilterDurationActive(true);
-    }
-  }, []);
 
   React.useEffect(() => {
     setFoundMovies(savedMovies)

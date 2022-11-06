@@ -28,11 +28,13 @@
   line-height: 1.19;
 }
 
-.page-not-found__link {
+.page-not-found__btn {
   font-weight: 400;
   font-size: 14px;
   line-height: 1.21;
-  text-decoration: none;
+  cursor: pointer;
+  background-color: #202020;
+  border: none;
   color: #4285F4;
 }
 
@@ -62,7 +64,7 @@
     row-gap: 10px;
   }
 
-  .page-not-found__link {
+  .page-not-found__btn {
     font-size: 12px;
     line-height: 1.25;
   }

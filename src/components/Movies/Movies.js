@@ -56,7 +56,6 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
       setFoundMovies(filteredFoundMoviesArray);
       localStorage.setItem('foundMovies', JSON.stringify(filteredFoundMoviesArray));
       setIsLoading(false);
-      setIsFoundActive(false);
     }
     localStorage.setItem('searchText', searchText)
     isFilterDurationActive
@@ -124,6 +123,7 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
       onSearchMovie={onSearchMovie}
       handleFilterDuration={handleFilterDuration}
       tumbler={isFilterDurationActive}
+      isLoading={isLoading}
     />
 
     {isLoading && <Preloader />}
@@ -136,13 +136,13 @@ function Movies({ loggedIn, handleAddMovieFavorites, savedMovies, handleDeleteMo
         </div>
       : ''}
 
-    {filteredMovies.length === 0 && !isLoading && !isFoundError
+    {filteredMovies.length === 0 && !isLoading && !isFoundError && isFoundActive
       ? <div className="movies__not-found">
           Ничего не найдено.
         </div>
         : ''}
     
-    {filteredMovies.length > 0 && !isLoading && !isFoundActive
+    {filteredMovies.length > 0 && !isLoading && !isFoundError
       && <MoviesCardList
           movies={limitedMovies}
           handleAddMovieFavorites={handleAddMovieFavorites}
