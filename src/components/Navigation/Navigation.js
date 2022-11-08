@@ -44,7 +44,7 @@ function NavigationMenu() {
                 </NavLink>
               </li>
               <li className="navigation__item">
-                <NavLink className="navigation__link navigation__link_font-weight" activeClassName="navigation__link_active" to="/saved-movies">
+                <NavLink className="navigation__link" activeClassName="navigation__link_active" to="/saved-movies">
                   Сохраненные фильмы
                 </NavLink>
               </li>

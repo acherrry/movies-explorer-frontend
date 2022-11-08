@@ -156,6 +156,10 @@
     padding-bottom: 300px;
   }
 
+  .profile__field {
+    margin: 9px 0 0;
+  }
+
   .profile__btn {
     font-size: 12px;
     line-height: 1.25;

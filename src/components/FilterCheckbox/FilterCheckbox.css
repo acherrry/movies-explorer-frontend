@@ -19,7 +19,7 @@
   position: relative;
   width: 36px;
   height: 20px;
-  background: #3DDC84;
+  background: #A9A9A9;
   border-radius: 20px;
   transition: opacity 0.2s linear;
 }
@@ -37,17 +37,17 @@
   height: 16px;
   position: absolute;
   top: 2px;
-  right: 2px;
+  left: 2px;
 }
 
 .filter-checkbox__input:checked+.filter-checkbox__style::before {
-  right: 18px;
+  left: 18px;
   top: 2px;
   background-color: #D3D3D3;
 }
 
 .filter-checkbox__input:checked+.filter-checkbox__style {
-  background-color: #A9A9A9;
+  background-color: #3DDC84;
 }
 
 .filter-checkbox__text {

@@ -31,6 +31,7 @@
 }
 
 .popup__text {
+  color: #202020;
   font-weight: 500;
   font-size: 22px;
   line-height: 1.21;
