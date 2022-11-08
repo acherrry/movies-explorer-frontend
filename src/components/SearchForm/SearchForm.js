@@ -67,6 +67,7 @@ function SearchForm({ onSearchMovie, tumbler, handleFilterDuration, isLoading })
             {searchError}
           </span>
           <button
+            disabled={isLoading}
             type="submit"
             className="search-form__btn-find"
           />

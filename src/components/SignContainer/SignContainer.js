@@ -10,7 +10,8 @@ function SignContainer({
   text, 
   path, 
   link, 
-  isValid, 
+  isValid,
+  isLoading,
   onSubmit,
   error
 }) {
@@ -29,7 +30,7 @@ function SignContainer({
             {error}
           </div>
           <button
-            disabled={!isValid}
+            disabled={!isValid || isLoading}
             type="submit"
             className={`sign-container__btn-submit ${
               isValid

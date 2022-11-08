@@ -103,7 +103,7 @@ function Profile({ onUpdateUser, onSignOut, isLoading }) {
             : "profile__btn"
         }`}
           type="submit"
-          disabled={isBtnEditDisabled}
+          disabled={isBtnEditDisabled || isLoading}
         >
           Редактировать
         </button>
@@ -111,6 +111,7 @@ function Profile({ onUpdateUser, onSignOut, isLoading }) {
           type="button"
           className="profile__btn profile__btn_logout"
           onClick={onSignOut}
+          disabled={isLoading}
         >
           Выйти из аккаунта
         </button>
